@@ -10,7 +10,7 @@ height = Integer(gets.chomp)
 
 ideal_weight = height - 110
 
-if ideal_weight <= 0
+if ideal_weight < 0
   puts "[Console] Ваш вес уже оптимальный"
 else
   puts "[Console] #{name}, ваш идеальный вес #{ideal_weight}"
