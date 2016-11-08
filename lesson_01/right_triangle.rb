@@ -18,14 +18,14 @@ if sides.empty?
 elsif sides.length == 1
 	isosceles = true
 else
-isosceles	 = sides.uniq.length != sides.length 			? true : false
-rectangular	 = hypotenuse**2 == sides[0]**2 + sides[1]**2 	? true : false
+isosceles = sides.uniq.length != sides.length ? true : false
+rectangular = hypotenuse**2 == sides[0]**2 + sides[1]**2 ? true : false
 end
 
 text = []
-equilateral == true 	? text << "Равносторонний" : text << "Не равносторонний"
-isosceles 	== true 	? text << "Равнобедренный" : text << "Не равнобедренный"
-rectangular == true 	? text << "Прямоугольный" : text << "Не прямоугольный"
+equilateral == true ? text << "Равносторонний" : text << "Не равносторонний"
+isosceles == true ? text << "Равнобедренный" : text << "Не равнобедренный"
+rectangular == true ? text << "Прямоугольный" : text << "Не прямоугольный"
 
 print "[Console] Треугольник: "
 puts text.join(" | ")
