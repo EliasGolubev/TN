@@ -1,6 +1,15 @@
 # !/usr/bin/env ruby
 # coding: utf-8
 # ideal weight
+require 'unicode'
+
+class String
+  
+  def capitalize
+    Unicode::capitalize(self)
+  end
+end
+
 print "[Console] Введите имя: "
 name = gets.chomp.capitalize
 
