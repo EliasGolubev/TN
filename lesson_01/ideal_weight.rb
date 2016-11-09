@@ -2,11 +2,10 @@
 # coding: utf-8
 # ideal weight
 print "[Console] Введите имя: "
-name = gets.chomp
-name.capitalize!
+name = gets.chomp.capitalize
 
 print "[Console] Введите ваш рост: "
-height = Integer(gets.chomp)
+height = gets.chomp.to_i
 
 ideal_weight = height - 110
 

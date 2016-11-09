@@ -14,12 +14,12 @@ sides = [first_side, second_side, third_side]
 hypotenuse = sides.delete(sides.max)
 
 if sides.empty?
-	equilateral = true
+  equilateral = true
 elsif sides.length == 1
-	isosceles = true
+  isosceles = true
 else
-isosceles = sides.uniq.length != sides.length ? true : false
-rectangular = hypotenuse**2 == sides[0]**2 + sides[1]**2 ? true : false
+  isosceles = sides.uniq.length != sides.length ? true : false
+  rectangular = hypotenuse**2 == sides[0]**2 + sides[1]**2 ? true : false
 end
 
 text = []
@@ -29,5 +29,3 @@ rectangular == true ? text << "Прямоугольный" : text << "Не пр�
 
 print "[Console] Треугольник: "
 puts text.join(" | ")
-
-	
