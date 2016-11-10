@@ -21,5 +21,5 @@ day_case.each_index do |index|
 end
 
 month_hash.each do |key, value| 
-  puts "#{key} have #{value[:day]}" if value[:day] == 30
+  puts "[Console] #{key} : #{value[:day]}" if value[:day] == 30
 end
