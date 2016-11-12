@@ -9,4 +9,4 @@ index = 0
   hash[char.to_sym] = index if char =~ /[a,e,i,o,u]/
 end
 
- p hash
+# p hash
