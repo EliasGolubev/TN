@@ -18,4 +18,4 @@ end
 arr.delete(0)
 
 # p arr
-# p arr.size
+

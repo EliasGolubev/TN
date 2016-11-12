@@ -2,32 +2,31 @@
 # coding: utf-8
 # leap
 
-hash = {}
-hash[:yday] = 0
+yday = 0
 arr_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 print '[Console] Введите год: '
-hash[:year] = gets.to_i
+year = gets.to_i
 
 print '[Console] Введите месяц: '
-hash[:month] = gets.to_i
+month = gets.to_i
 
 print '[Console] Введите число: '
-hash[:day] = gets.to_i
+day = gets.to_i
 
-hash[:leap] = (hash[:year] % 400).zero? || (hash[:year] % 4).zero? ? true : false
+leap = 29 if (year % 400).zero? || (year % 4).zero?
 
-arr_day[1] = hash[:leap] == true ? 29 : 28
+arr_day[1] = leap
 
 count = 1
 while count <= 12
-  if hash[:month] == count
-    hash[:yday] += hash[:day]
+  if month == count
+    yday += day
     break
   else
-    hash[:yday] += arr_day[count]
+    yday += arr_day[count]
     count += 1
   end
 end
 
-puts "[Console] Это #{hash[:yday]} день в этом году"
+puts "[Console] Это #{yday} день в этом году"
