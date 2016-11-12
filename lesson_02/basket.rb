@@ -9,10 +9,14 @@ puts '[Console] Для окочания покупок введите стоп'
 loop do
   print '[Console] Введите название товара: '
   name = gets.chomp
+  dname = basket.include?(name.to_sym) ? true : false
+  puts "[Console] Изменение товара #{name}" if dname == true
   break if name == 'стоп'
+ 
   print '[Console] Введите цену: '
   price = gets.chomp
   break if price == 'стоп'
+  
   print '[Console] Введите количество товара: '
   num = gets.chomp
   break if num == 'стоп'
@@ -20,8 +24,10 @@ loop do
 end
 
 sum = 0
-basket.each do |_key, value|
-  sum += (value[:price] * value[:num])
+basket.each do |key, value|
+  result = (value[:price] * value[:num])
+  puts "[Console] Итоговая сумма за товар #{key}: #{result}"
+  sum += result
 end
 
 puts basket
