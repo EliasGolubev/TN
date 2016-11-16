@@ -1,28 +1,26 @@
 class Station
   attr_reader :name
-  
+  TYPE = %w(passenger freight).freeze
+
   def initialize(name)
     @name = name
     @passenger_trains = []
     @freight_trains = []
   end
-  
+
   def add_train(train)
-    @passenger_trains << train if train.type == "passenger"
-    @freight_trains << train if train.type == "freight"
+    @passenger_trains << train if train.type == TYPE[0]
+    @freight_trains << train if train.type == TYPE[1]
   end
-  
+
   def delete_train(train)
-    @passenger_trains.delete(train) if train.type.equal?("passenger")
-    @freight_trains.delete(train) if train.type.equal?("freight")
+    @passenger_trains.delete(train) if train.type == TYPE[0]
+    @freight_trains.delete(train) if train.type == TYPE[1]
   end
-  
-  def show_all()
-    return @passenger_trains + @freight_trains
-  end
-  
-  def show_all(type)
-    return @passenger_trains if @train.type.equal?("passenger")
-    return @freight_trains if @train.type.equal?("freight")
+
+  def show_all(type = nil)
+    return @passenger_trains + @freight_trains if type.nil?
+    return @passenger_trains if type == TYPE[0]
+    return @freight_trains if type == TYPE[1]
   end
 end
