@@ -10,6 +10,7 @@ class Train
     @wagon = wagon
     @speed = DEF_SPEED
     @route = nil
+    @count = 0
   end
 
   def speed_up
@@ -31,42 +32,27 @@ class Train
   end
 
   def show_station_now
-    @station_now = @route.station[@count].name
+    return @route.stations[@count].name
   end
 
   def show_station_last
-    @station_last = @route.station[@count - 1].name unless @count.zero?
+    return @route.stations[@count - 1].name unless @count.zero?
   end
 
   def show_station_next
-    @station_next = @route.station[@count + 1].name if @count != (@route.station.size - 1)
+    return @route.stations[@count + 1].name if @count != (@route.stations.size - 1)
   end
 
   def route(route)
     @route = route
-    @count = 0
-    update
   end
 
   def go_next_station
-    if @count != (@route.station.size - 1)
-      @count += 1
-      update
-    end
+      @count += 1 if @count != (@route.stations.size - 1)
   end
 
   def go_last_station
-    unless @count.zero?
-      @count -= 1
-      update
-    end
+      @count -= 1 unless @count.zero?
   end
 
-  private
-
-  def update
-    show_station_now
-    show_station_last
-    show_station_next
-  end
 end
