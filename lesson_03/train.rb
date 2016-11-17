@@ -54,5 +54,4 @@ class Train
   def go_last_station
       @count -= 1 unless @count.zero?
   end
-
 end
