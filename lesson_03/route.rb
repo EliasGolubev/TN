@@ -1,20 +1,18 @@
 class Route
   attr_reader :station
   def initialize(first, second)
-    @station = [first, second]
+    @stations = [first, second]
   end
 
-  def add(name, number = @station.size - 1)
-    temp = @station.slice!(number..@station.size - 1)
-    @station << name
-    @station += temp
+  def add(name)
+    @stations.insert(@stations.size - 1, name)
   end
 
   def delete(name)
-    @station.delete(name)
+    @stations.delete(name)
   end
 
   def show
-    @station.each_with_index { |x, i| puts "#{i}. #{x.name}" }
+    @stations.each_with_index { |x, i| puts "#{i}. #{x.name}" }
   end
 end
