@@ -8,6 +8,7 @@ class CargoTrain < Train
   protected
 
   # Определение типа поезда
+  # Тип Protected потому что класс наследуется
   def get_type
     TYPE
   end
