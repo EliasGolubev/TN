@@ -52,6 +52,7 @@ class Train
   protected
 
   # Тип для инициализации типа поезда
+  # Тип Protected потому что класс наследуется
   def get_type
   end
 end
