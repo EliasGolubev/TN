@@ -1,5 +1,7 @@
 require 'colorize'
 
+private
+
 class Helper
   MENU_GREEN = ['[Console]'.colorize(:green),
                 '[Main]'.colorize(:green),
