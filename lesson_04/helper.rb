@@ -24,6 +24,16 @@ class Helper
                  '[Run Passeger Train]'.colorize(:yellow),
                  '[Run Cargo Train]'.colorize(:yellow)].freeze
 
+  def give_train(route)
+    number = gets.chomp
+    route.show.each do |station|
+      station.show_all.each do |train|
+        return train if train.number == number         
+      end
+    end
+  end
+  
+  
   def menu(level)
     case level
     when 1

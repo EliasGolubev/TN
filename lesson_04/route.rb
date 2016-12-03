@@ -13,8 +13,8 @@ class Route
   end
 
   def show
-    hash = {}
-    @stations.each_with_index { |x, i| hash[i] = x }
-    hash
+    array = []
+    @stations.each_with_index { |x, i| array[i] = x }
+    array
   end
 end

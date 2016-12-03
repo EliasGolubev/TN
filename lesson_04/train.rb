@@ -12,7 +12,7 @@ class Train
   end
 
   def add_wagon(wagon)
-    @wagon.push(wagon)
+    @wagon << wagon if @speed.zero?
   end
 
   def delete_wagon
@@ -30,15 +30,15 @@ class Train
   end
 
   def show_station_now
-    @route.stations[@count].name
+    @route.stations[@count]
   end
 
   def show_station_last
-    @route.stations[@count - 1].name unless @count.zero?
+    @route.stations[@count - 1] unless @count.zero?
   end
 
   def show_station_next
-    @route.stations[@count + 1].name if @count != (@route.stations.size - 1)
+    @route.stations[@count + 1] if @count != (@route.stations.size - 1)
   end
 
   def go_next_station
@@ -51,7 +51,7 @@ class Train
 
   protected
 
-  # Тип для инициализации типа поезда
+  # Инициализации типа поезда
   # Тип Protected потому что класс наследуется
   def get_type
   end
