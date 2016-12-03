@@ -10,33 +10,43 @@ require_relative 'train_manager'
 require_relative 'helper'
 
 helper = Helper.new
-helper.menu(1.1)
-st_1 = gets.chomp
-helper.menu(1.2)
-st_end = gets.chomp
-station1 = Station.new(st_1)
-station_end = Station.new(st_end)
-manager = TrainManager.new(station1, station_end)
 
+# Create first station
+helper.menu(1.1)
+station_first = Station.new(gets.chomp)
+
+# Create last station
+helper.menu(1.2)
+station_last = Station.new(gets.chomp)
+
+# Create Route
+route = Route.new(station_first, station_last)
+
+# Main menu
 loop do
   helper.menu(1)
   input = gets.chomp
   case input
   when '1'
-    loop do
+    # Menu create train
+    loop do 
       helper.menu(2)
       input = gets.chomp
       case input
-      when '1'
+      when '1'-
+        # Add passenger train
         helper.menu(2.1)
         train_name = gets.chomp
         train = PassengerTrain.new(train_name)
-        manager.add_train(train, station1)
+        station_first.add_train(train)
+        train.route = route
       when '2'
+        # Add cargo train
         helper.menu(2.1)
         train_name = gets.chomp
         train = CargoTrain.new(train_name)
-        manager.add_train(train, station1)
+        station_first.add_train(train)
+        train.route = route
       when 'h'
         helper.help_add_train
       when 'e'
@@ -44,20 +54,17 @@ loop do
       end
     end
   when '2'
+    # Menu Delete train
     loop do
       helper.menu(3)
       input = gets.chomp
       case input
       when '1'
+        # Delete passenger train
         helper.menu(3.1)
         train_name = gets.chomp
-        train = manager.search_passenger_train(train_name)
-        manager.delete_train(train)
-      when '2'
-        helper.menu(3.1)
-        train_name = gets.chomp
-        train = manager.search_cargo_train(train_name)
-        manager.delete_train(train)
+        train = helper.give_train(route, train_name)
+        train.show_station_now.delete_train(train)
       when 'h'
         helper.help_delete_train
       when 'e'
@@ -65,29 +72,26 @@ loop do
       end
     end
   when '3'
+    # Menu Add wagon
     loop do
       helper.menu(4)
       input = gets.chomp
       case input
       when '1'
+        # Add Passenger or Cargo Wagon
         helper.menu(4.1)
         train_name = gets.chomp
-        train = manager.search_passenger_train(train_name)
-        train.add_wagon(PassengerWagon.new)
+        train = helpe-r.give_train(route, train_name)
+        if train.type == 'passenger'
+          train.add_wagon(PassengerWagon.new)
+        elsif train.type == 'cargo'
+          train.add_wagon(CargoWagon.new)
+        end
       when '2'
-        helper.menu(4.2)
+        # Delete Passenger or Cargo Wagon
+        helper.menu(4.1)
         train_name = gets.chomp
-        train = manager.search_cargo_train(train_name)
-        train.add_wagon(CargoWagon.new)
-      when '3'
-        helper.menu(4.3)
-        train_name = gets.chomp
-        train = manager.search_passenger_train(train_name)
-        train.delete_wagon
-      when '4'
-        helper.menu(4.4)
-        train_name = gets.chomp
-        train = manager.search_cargo_train(train_name)
+        train = helper.give_train(route, train_name)
         train.delete_wagon
       when 'h'
         helper.help_wagon
@@ -96,30 +100,27 @@ loop do
       end
     end
   when '4'
+    # Menu Go Train
     loop do
       helper.menu(5)
       input = gets.chomp
-      case input
+      case input 
       when '1'
+        # Go Passenger Train next station
         helper.menu(5.1)
         train_name = gets.chomp
-        train = manager.search_passenger_train(train_name)
-        manager.go_train_next(train)
+        train = helper.give_train(route, train_name)
+        train.show_st-ation_now.delete_train(train)
+        train.go_next_station
+        train.show_station_now.add_train(train)
       when '2'
-        helper.menu(5.2)
-        train_name = gets.chomp
-        train = manager.search_cargo_train(train_name)
-        manager.go_train_next(train)
-      when '3'
+        # Go Passenger Train or Cargo Train last station
         helper.menu(5.1)
         train_name = gets.chomp
-        train = manager.search_passenger_train(train_name)
-        manager.go_train_last(train)
-      when '4'
-        helper.menu(5.2)
-        train_name = gets.chomp
-        train = manager.search_cargo_train(train_name)
-        manager.go_train_last(train)
+        train = helper.give_train(route, train_name)
+        train.show_station_now.delete_train(train)
+        train.go_last_station
+        train.show_station_now.add_train(train)
       when 'h'
         helper.help_run_train
       when 'e'
@@ -127,18 +128,27 @@ loop do
       end
     end
   when '5'
+    # Menu Show train
     loop do
       helper.menu(6)
       input = gets.chomp
       case input
       when '1'
-        route = manager.route
-        route.stations.each do |station|
-          puts "Поезда на станции #{station.name}:"
-          puts 'Пассажирские:'
-          station.show_all('passenger').each { |train| puts train.number }
-          puts 'Грузовые:'
-          station.show_all('cargo').each { |train| puts train.number }
+        # Show all Station and All Train
+        array_station = route.show
+        array_station.each do |station|
+          print "Станция: "
+          puts station.name
+
+          puts 'Пассажирские поезда'
+          station.passenger_trains.each do |train|
+            puts train.number
+          end
+
+          puts 'Грузовые поезда'
+          station.cargo_trains.each do |train|
+            puts train.number
+          end
         end
       when 'h'
         helper.helper_show
@@ -147,14 +157,22 @@ loop do
       end
     end
   when '6'
-    loop do
+    # Menu Add Station
+    loop do 
       helper.menu(7)
       input = gets.chomp
       case input
       when '1'
+        # Add Station
         helper.menu(7.1)
-        station = gets.chomp
-        manager.add_station(Station.new(station))
+        station_name = gets.chomp
+        route.add(Station.new(station_name))
+        array_station = route.show
+        array_station.each do |station|
+          station.passenger_trains.each do |train|
+            train.route = route
+          end
+        end
       when 'h'
         helper.helper_add_station
       when 'e'
