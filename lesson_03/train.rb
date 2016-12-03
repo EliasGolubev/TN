@@ -1,5 +1,7 @@
 class Train
+  attr_accessor :route
   attr_reader :speed, :wagon, :type
+  
 
   TYPE = %w(passenger freight).freeze
   DEF_SPEED = 0
@@ -32,19 +34,15 @@ class Train
   end
 
   def show_station_now
-    return @route.stations[@count].name
+     @route.stations[@count].name
   end
 
   def show_station_last
-    return @route.stations[@count - 1].name unless @count.zero?
+    @route.stations[@count - 1].name unless @count.zero?
   end
 
   def show_station_next
-    return @route.stations[@count + 1].name if @count != (@route.stations.size - 1)
-  end
-
-  def route(route)
-    @route = route
+    @route.stations[@count + 1].name if @count != (@route.stations.size - 1)
   end
 
   def go_next_station
@@ -54,4 +52,6 @@ class Train
   def go_last_station
       @count -= 1 unless @count.zero?
   end
+  protected
+  def 
 end

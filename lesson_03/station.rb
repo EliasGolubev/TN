@@ -18,8 +18,8 @@ class Station
   end
 
   def show_all(type = nil)
-    return @passenger_trains + @freight_trains if type.nil?
-    return @passenger_trains if type == Train::TYPE[0]
-    return @freight_trains if type == Train::TYPE[1]
+    @passenger_trains + @freight_trains if type.nil?
+    @passenger_trains if type == Train::TYPE[0]
+    @freight_trains if type == Train::TYPE[1]
   end
 end
