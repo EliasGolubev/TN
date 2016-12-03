@@ -6,7 +6,6 @@ require_relative 'passenger_train'
 require_relative 'wagon'
 require_relative 'cargo_wagon'
 require_relative 'passenger_wagon'
-require_relative 'train_manager'
 require_relative 'helper'
 
 helper = Helper.new
@@ -15,7 +14,7 @@ helper = Helper.new
 helper.menu(1.1)
 station_first = Station.new(gets.chomp)
 
-# Create last station
+# Create last statirequire_relative 'train_manager'on
 helper.menu(1.2)
 station_last = Station.new(gets.chomp)
 
@@ -46,7 +45,7 @@ loop do
         train_name = gets.chomp
         train = CargoTrain.new(train_name)
         station_first.add_train(train)
-        train.route = route
+        train.routerequire_relative 'train_manager' = route
       when 'h'
         helper.help_add_train
       when 'e'
@@ -63,7 +62,7 @@ loop do
         # Delete passenger train
         helper.menu(3.1)
         train_name = gets.chomp
-        train = helper.give_train(route, train_name)
+        train = helrequire_relative 'train_manager'per.give_train(route, train_name)
         train.show_station_now.delete_train(train)
       when 'h'
         helper.help_delete_train
@@ -116,7 +115,7 @@ loop do
       when '2'
         # Go Passenger Train or Cargo Train last station
         helper.menu(5.1)
-        train_name = gets.chomp
+        train_name require_relative 'train_manager'= gets.chomp
         train = helper.give_train(route, train_name)
         train.show_station_now.delete_train(train)
         train.go_last_station
