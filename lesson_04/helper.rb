@@ -1,36 +1,11 @@
 require 'colorize'
 
-private
-
 class Helper
-  MENU_GREEN = ['[Console]'.colorize(:green),
-                '[Main]'.colorize(:green),
-                '[Add Train]'.colorize(:green),
-                '[Delete Train]'.colorize(:green),
-                '[Wagon]'.colorize(:green),
-                '[Run Train]'.colorize(:green),
-                '[Show]'.colorize(:green)].freeze
 
-  MENU_YELLOW = ['[Console]'.colorize(:yellow),
-                 '[Main]'.colorize(:yellow),
-                 '[Add Train]'.colorize(:yellow),
-                 '[Delete Train]'.colorize(:yellow),
-                 '[Wagon]'.colorize(:yellow),
-                 '[Run Train]'.colorize(:yellow),
-                 '[Show]'.colorize(:yellow),
-                 '[Add Passeger Wagon]'.colorize(:yellow),
-                 '[Add Station]'.colorize(:yellow),
-                 '[Add Cargo Wagon]'.colorize(:yellow),
-                 '[Delete Passenger Wagon]'.colorize(:yellow),
-                 '[Delete Crgo Wagon]'.colorize(:yellow),
-                 '[Run Passeger Train]'.colorize(:yellow),
-                 '[Run Cargo Train]'.colorize(:yellow)].freeze
-
-  def give_train(route)
-    number = gets.chomp
-    route.show.each do |station|
+  def give_train(route, number)
+    route.stations.each do |station|
       station.show_all.each do |train|
-        return train if train.number == number         
+        return train if train.number == number
       end
     end
   end
@@ -96,26 +71,21 @@ class Helper
   end
 
   def help_delete_train
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[3]} 1 - Удалить пассажирский поезд"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[3]} 2 - Удалить грузовой поезд"
+    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[3]} 1 - Удалить поезд"
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[3]} h - Справка"
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[3]} e - Выход"
 end
 
   def help_wagon
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} 1 - Добавить пассажирский вагон"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} 2 - Добавить грузовой вагон"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} 3 - Удалить пассажирский вагон"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} 4 - Удалить грузовой вагон"
+    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} 1 - Добавить вагон"
+    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} 2 - Удалить  вагон"
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} h - Справка"
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[4]} e - Выход"
   end
 
   def help_run_train
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} 1 - Перемещение пассажирского поезда на следующую станцию"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} 2 - Перемещение грузового поезда на следующую станцию"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} 3 - Перемещение пассажирского поезда на предыдущую станцию"
-    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} 4 - Перемещение грузового поезда на предыдущую станцию"
+    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} 1 - Перемещение поезда на следующую станцию"
+    puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} 2 - Перемещение поезда на предыдущую станцию"
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} h - Справка"
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[5]} e - Выход"
   end
@@ -132,3 +102,28 @@ end
     puts "#{MENU_GREEN[0]}#{MENU_GREEN[1]}#{MENU_YELLOW[8]} e - Выход"
   end
 end
+
+private
+
+  MENU_GREEN = ['[Console]'.colorize(:green),
+                '[Main]'.colorize(:green),
+                '[Add Train]'.colorize(:green),
+                '[Delete Train]'.colorize(:green),
+                '[Wagon]'.colorize(:green),
+                '[Run Train]'.colorize(:green),
+                '[Show]'.colorize(:green)].freeze
+
+  MENU_YELLOW = ['[Console]'.colorize(:yellow),
+                 '[Main]'.colorize(:yellow),
+                 '[Add Train]'.colorize(:yellow),
+                 '[Delete Train]'.colorize(:yellow),
+                 '[Wagon]'.colorize(:yellow),
+                 '[Run Train]'.colorize(:yellow),
+                 '[Show]'.colorize(:yellow),
+                 '[Add Wagon]'.colorize(:yellow),
+                 '[Add Station]'.colorize(:yellow),
+                 '[Add Cargo Wagon]'.colorize(:yellow),
+                 '[Delete Wagon]'.colorize(:yellow),
+                 '[Delete Crgo Wagon]'.colorize(:yellow),
+                 '[Run Passeger Train]'.colorize(:yellow),
+                 '[Run Cargo Train]'.colorize(:yellow)].freeze
