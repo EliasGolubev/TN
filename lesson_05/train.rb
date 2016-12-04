@@ -6,12 +6,10 @@ class Train
 
   DEF_SPEED = 0
 
-  @@trains = []
+  @@trains = {}
 
   def self.find(number)
-    ret_train = 0
-    @@trains.each {|train| ret_train = train if train.number == number}
-    ret_train == 0 ?  nil : ret_train
+    @@trains[number.to_sym]
   end
 
   def initialize(number)
@@ -21,7 +19,7 @@ class Train
     @speed = DEF_SPEED
     @route = nil
     @count = 0
-    @@trains << self
+    @@trains[number.to_sym] = self
   end
 
   def add_wagon(wagon)
