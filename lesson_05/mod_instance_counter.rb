@@ -3,15 +3,11 @@ module InstanceCounter
   def self.included(base)
     base.extend ClassMethods
     base.send :include, InstanceMethods
-    base.init
+    base.class_variable_set(:@@instances, 0)
   end
 
   module ClassMethods    
 
-    def init
-      class_variable_set(:@@instances, 0)
-    end
-    
     def instances
       class_variable_get(:@@instances)
     end  
