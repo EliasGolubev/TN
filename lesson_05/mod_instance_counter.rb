@@ -7,10 +7,10 @@ module InstanceCounter
   end
 
   module ClassMethods    
-
-    def instances
-      class_variable_get(:@@instances)
-    end  
+    attr_reader :instances
+    
+    private
+    attr_writer :instances
   end
 
   module InstanceMethods   
