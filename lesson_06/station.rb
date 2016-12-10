@@ -43,7 +43,7 @@ class Station
   private
   
   def validate!
-    raise "Station name has not format" if name !~ NAME_FORMAT
+    raise "Station name has invalid format" if name !~ NAME_FORMAT
     true
   end
 end
