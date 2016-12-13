@@ -26,7 +26,7 @@ class Station
 
   def delete_train(train)
     @trains.delete(train)
-    update(train)
+    update_del(train)
   end
 
   def show_all(type = nil)
@@ -58,8 +58,13 @@ class Station
     true
   end
 
-   def update(train)
+  def update(train)
     @passenger_trains << train if train.type == TYPE[0]
     @cargo_trains << train if train.type == TYPE[1]
+  end
+
+  def update_del(train)
+    @passenger_trains.delete(train) if train.type == TYPE[0]
+    @cargo_trains.delete(train) if train.type == TYPE[1]
   end
 end
