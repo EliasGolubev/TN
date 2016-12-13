@@ -13,23 +13,24 @@ class Station
   def initialize(name)
     @name = name
     validate!
+    @trains = []
     @passenger_trains = []
     @cargo_trains = []
     @@station_all << self
   end
 
   def add_train(train)
-    @passenger_trains << train if train.type == TYPE[0]
-    @cargo_trains << train if train.type == TYPE[1] 
+    @trains << train
+    update(train) 
   end
 
   def delete_train(train)
-    @passenger_trains.delete(train) if train.type == TYPE[0]
-    @cargo_trains.delete(train) if train.type == TYPE[1]
+    @trains.delete(train)
+    update(train)
   end
 
   def show_all(type = nil)
-    return @passenger_trains + @cargo_trains if type.nil?
+    return @trains if type.nil?
     return @passenger_trains if type == TYPE[0]
     return @cargo_trains if type == TYPE[1]
   end
@@ -38,10 +39,9 @@ class Station
   # передавая каждый поезд в блок.
   def train_each(&block)
     if block_given?
-      @passenger_trains.each {|passenger_train| yield(passenger_train)}
-      @cargo_trains.each {|cargo_train| yield(cargo_train)}
+      @trains.each {|train| yield(train)}
     else
-      @passenger_trains + @cargo_trains
+      @trains
     end
   end
 
@@ -52,9 +52,14 @@ class Station
   end
 
   private
-  
+
   def validate!
     raise "Station name has not format" if name !~ NAME_FORMAT
     true
+  end
+
+   def update(train)
+    @passenger_trains << train if train.type == TYPE[0]
+    @cargo_trains << train if train.type == TYPE[1]
   end
 end
