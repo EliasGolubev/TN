@@ -9,41 +9,8 @@ require_relative 'cargo_wagon'
 require_relative 'passenger_wagon'
 
 class TrainManager
-  def initialize
-    @station_first = station_init
-    @station_last = station_init
-    @route = Route.new(@station_first, @station_last)
-  end
-
-  def run_menu
-    loop do
-      input = menu_command(TrainManager::CSTR[:con_m])
-      case input
-      when '1'
-        menu_add_train
-      when '2'
-        menu_delete_train
-      when '3'
-        menu_wagon
-      when '4'
-        menu_run
-      when '5'
-        menu_show
-      when '6'
-        menu_add_station
-      when 'h'
-        helper(TrainManager::HELP_MAIN_MENU)
-      when 'e'
-        break
-      end
-    end
-  end
-
-  private
-
-  attr_accessor :route, :station_first, :station_last
-
-  CSTR = { con_m: '[Console][Main] Выберите действие(h - Справка): ',
+  
+   CSTR = { con_m: '[Console][Main] Выберите действие(h - Справка): ',
            con_m_fs: '[Console][Main] Введите имя первой станции: ',
            con_m_add_tr: '[Console][Main][Add Train] Выберите действие(h - Справка): ',
            con_m_add_tr_act: '[Console][Main][Add Train] Введите номер поезда: ',
@@ -105,6 +72,41 @@ class TrainManager
   ERROR = { con_m_init: '[Console][Main][ERROR] Stations name is not correct!',
             con_m_add: '[Console][Main][Add Train][ERROR] Number has not correct!',
             con_m_add_st: '[Console][Main][Add Station][ERROR] Station name is not correct!' }.freeze
+  
+  def initialize
+    @station_first = station_init
+    @station_last = station_init
+    @route = Route.new(@station_first, @station_last)
+  end
+
+  def run_menu
+    loop do
+      input = menu_command(TrainManager::CSTR[:con_m])
+      case input
+      when '1'
+        menu_add_train
+      when '2'
+        menu_delete_train
+      when '3'
+        menu_wagon
+      when '4'
+        menu_run
+      when '5'
+        menu_show
+      when '6'
+        menu_add_station
+      when 'h'
+        helper(TrainManager::HELP_MAIN_MENU)
+      when 'e'
+        break
+      end
+    end
+  end
+
+  private
+
+  attr_accessor :route, :station_first, :station_last
+  
   def station_init
     station_name = menu_command(TrainManager::CSTR[:con_m_fs])
     station = Station.new(station_name)
