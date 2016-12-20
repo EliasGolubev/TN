@@ -1,57 +1,55 @@
-module Acessor
+module Acessors
   def self.included(base)
     base.extend ClassMethods
     base.send :include, InstanceMethods
   end
-  
-  
+
   module ClassMethods
-    #
-    # attr_accessor_with_history
-    # Этот метод динамически создает геттеры и сеттеры для любого кол-ва атрибутов, 
-    # при этом сеттер сохраняет все значения инстанс-переменной 
-    # при изменении этого значения.
-    #
+    
     def attr_accessor_with_history(*attr_names)
+      
+      define_method(:add_history) do |sym_var_hist,  value|
+          insv = instance_variable_get(sym_var_hist)
+          insv ||= []
+          insv << value
+          instance_variable_set(sym_var_hist, insv)
+      end
+        
+      send :private, :add_history
+
       attr_names.each do |name|
         var_name = "@#{name}".to_sym
+        var_name_history = "@#{name}_hist".to_sym
 
-        define_method(name) { instance_variable_get(var_name) }
+        define_method(name) {instance_variable_get(var_name)}
 
         define_method("#{name}=".to_sym) do |value|
-          instance_eval("@#{name} ||= []; @#{name} << #{value}")
+          instance_variable_set(var_name, value)
+          add_history(var_name_history, value)
         end
-        #
-        # Также в класс, в который подключается модуль должен добавляться инстанс-метод
-        # <имя_атрибута>_history
-        # который возвращает массив всех значений данной переменной.
-        #
-        alias_method "#{name}_history".to_sym, name.to_sym
+
+        define_method("#{name}_hist".to_sym) { instance_variable_get(var_name_history) }
       end
     end
 
-  #
-  # strong_attr_acessor
-  # который принимает имя атрибута и его класс. При этом создается геттер и сеттер 
-  # для одноименной инстанс-переменной, но сеттер проверяет тип присваемоего значения.
-  # Если тип отличается от того, который указан вторым параметром, 
-  # то выбрасывается исключение. Если тип совпадает, то значение присваивается.
-  #
-  def strong_attr_acessor(name, type)
-    var_name = "@#{name}".to_sym
-    define_method(name) { instance_variable_get(var_name) }
-    
-    define_method("#{name}=".to_sym) do |value|
-      if value.class.to_s == type
-        instance_eval("@#{name} = #{value}")
-      else
-        raise "No correct type"
+    def strong_attr_acessor(name, type)
+      var_name = "@#{name}".to_sym
+      
+      define_method(name) { instance_variable_get(var_name) }
+
+      define_method("#{name}=".to_sym) do |value|
+      
+        if value.class.to_s == type
+          instance_variable_set(var_name, value)
+        else
+         raise "Type errors"
+        end
+      
       end
     end
-
   end
-end
 
   module InstanceMethods
+    
   end
 end
