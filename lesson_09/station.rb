@@ -11,12 +11,11 @@ class Station
     @@stations_all
   end
 
+  validate :name => 'name', :type => 'format'
+
   def initialize(name)
     @name = name
-    validate!(:name => @name)
-    validate!(:number => @name, :type => "String")
-    validate!({:station => @name}, NAME_FORMAT)
-    @trains = []
+    validate!(NAME_FORMAT)
     @passenger_trains = []
     @cargo_trains = []
     @@stations_all << self
