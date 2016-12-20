@@ -39,14 +39,14 @@ module Acessors
 
       define_method("#{name}=".to_sym) do |value|
       
-        if value.class.to_s == type
-          instance_variable_set(var_name, value)
-        else
-          raise "Type errors"
-        end
+      if value.class.to_s == type
+        instance_variable_set(var_name, value)
+      else
+        raise "Type errors"
       end
     end
   end
+end
 
   module InstanceMethods
   end
