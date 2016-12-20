@@ -42,14 +42,12 @@ module Acessors
         if value.class.to_s == type
           instance_variable_set(var_name, value)
         else
-         raise "Type errors"
+          raise "Type errors"
         end
-      
       end
     end
   end
 
   module InstanceMethods
-    
   end
 end

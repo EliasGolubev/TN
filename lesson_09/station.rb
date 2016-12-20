@@ -11,7 +11,7 @@ class Station
     @@stations_all
   end
 
-  validate :name => 'name', :type => 'format'
+  validate name: 'name', type: 'format'
 
   def initialize(name)
     @name = name

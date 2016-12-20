@@ -14,7 +14,7 @@ class Train
     @@trains[number.to_sym]
   end
 
-  validate :name => 'number', :type => 'format'
+  validate name: 'number', type: 'format'
 
   def initialize(number)
     @number = number
