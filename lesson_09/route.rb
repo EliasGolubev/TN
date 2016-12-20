@@ -1,12 +1,15 @@
 class Route
   include Validation
 
-  attr_reader :stations
+  attr_reader :stations, :station
+
+  validate name: 'station', type: 'type'
+
   def initialize(first, last)
     @stations = [first, last]
     @stations.each do |station|
-      validate!(:name => station)
-      validate!(:number => station, :type => 'Station')
+      @station = station
+      validate!(Station)
     end
   end
 
