@@ -3,13 +3,13 @@ class Route
 
   attr_reader :stations, :station
 
-  validate name: 'station', type: 'type'
+  validate :station, :type, Station
 
   def initialize(first, last)
     @stations = [first, last]
     @stations.each do |station|
       @station = station
-      validate!(Station)
+      validate!
     end
   end
 
