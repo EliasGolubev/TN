@@ -11,11 +11,11 @@ class Station
     @@stations_all
   end
 
-  validate name: 'name', type: 'format'
+  validate :name, :format, NAME_FORMAT 
 
   def initialize(name)
     @name = name
-    validate!(NAME_FORMAT)
+    validate!
     @passenger_trains = []
     @cargo_trains = []
     @@stations_all << self
