@@ -14,7 +14,7 @@ class Train
     @@trains[number.to_sym]
   end
 
-  validate name: 'number', type: 'format'
+  validate :number, :format, NUMBER_FORMAT
 
   def initialize(number)
     @number = number
@@ -23,7 +23,7 @@ class Train
     @speed = DEF_SPEED
     @route = nil
     @count = 0
-    validate!(NUMBER_FORMAT)
+    validate!
     @@trains[number.to_sym] = self
   end
 
